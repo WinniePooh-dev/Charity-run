@@ -1,0 +1,109 @@
+@import '../../global-styles.scss';
+
+@keyframes spin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+$mainColor: rgba(255, 255, 255, .75);
+$secondColor: #C3C3C3;
+
+form.race-app-form {
+    // display: flex;
+    // flex-wrap: wrap;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    z-index: 999;
+    margin: 0 auto;
+    padding: 1em;
+    width: 50%;
+    background-color: $mainColor;
+    border-radius: 10px;
+    border: double 4px $secondColor;
+
+    & h3 {
+        margin: .5em;
+    }
+
+    & label {
+        display: block;
+        margin: .3em 1em 0;
+
+        & + input {
+            margin-top: .2em;
+
+            &[type='date'] {
+
+                &::-webkit-calendar-picker-indicator {
+                    content: url(../../static/img/calendar.png);
+                    transform: scale(2.3);
+
+                    &:active {
+                        transition: .3s;
+                        transform: scale(2);
+                    }
+                }
+            }
+        }
+    }
+
+    & input, button {
+        width: 50%;
+        box-shadow: 4px 4px 8px 0 darken($secondColor, 30%);
+
+        &, &:active, :focus {
+            border: 2px solid darken($secondColor, 20%);
+            outline: none;
+        }
+    }
+
+    input.error {
+        border: 2px solid $errorColor;
+        box-shadow: 4px 4px 8px 0 $errorColor;
+
+        &::placeholder {
+            color: $errorColor;
+        }
+    }
+
+    h3 {
+        & .close {
+            margin: -.5em -.3em 0 0;
+            padding-bottom: .6rem;
+            color: darken($secondColor, 50%);
+            font-weight: bold;
+            float: right;
+            font-size: 2.5em;
+            cursor: pointer;
+            opacity: .3;
+            transition: .3s;
+        }
+
+        .close:hover {
+            opacity: 1;
+            animation: spin 5s linear 0s infinite;
+        }
+
+        .close:active, :focus {
+            outline: none;
+            animation: spin 1s linear 0s infinite;
+        }
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    form.race-app-form {
+        width: 75%;
+    }
+}
+
+@media screen and ( max-width: 768px ) {
+    form.race-app-form {
+        width: 90%;
+
+        button, input {
+            width: 75%;
+        }
+    }
+}

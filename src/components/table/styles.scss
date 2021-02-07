@@ -1,0 +1,57 @@
+@import '../../global-styles.scss';
+
+$mainColor: #e8e9eb;
+
+table {
+    width: 100%;
+    border: 0px;
+    border-collapse: collapse;
+
+    & thead {
+        font-weight: bold;
+
+        & th {
+            text-align: start;
+            padding: 1rem;
+            text-shadow: 1px 1px 2px black, 0 0 1em $textColor;
+            color: $textColor;
+            border: 1px solid $textColor;
+            background-color: darken($mainColor, 40%);
+        }
+    }
+
+    & tbody {
+        & > tr:hover {
+            background-color: scale-color($mainColor, $lightness: 50%);
+        }
+    }
+
+    & td { padding: 0.6rem 1rem; border-bottom: 1px solid $mainColor; }
+}
+
+@media screen and (max-width: 1080px) {
+    table {
+        & thead {
+            display: none;
+        }
+
+        & tr {
+            display: block;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid $mainColor;
+        }
+
+        & tbody {
+            & td {
+                display: block;
+                text-align: right;
+
+                &::before {
+                    content: attr(aria-label);
+                    float: left;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
