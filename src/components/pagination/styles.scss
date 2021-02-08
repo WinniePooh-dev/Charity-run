@@ -1,0 +1,54 @@
+@import '../../global-styles.scss';
+@import '../table/styles.scss';
+
+nav {
+    margin-top: 5%;
+
+    ul.pagination {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    
+        li.page-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: .5rem;
+            width: 3rem;
+            height: 3rem;
+            border: 2px solid darken($mainColor, 40%);
+            background-color: $mainColor;
+            border-radius: 5px;
+            list-style-type: none;
+            cursor: pointer;
+            box-shadow: 1px 1px 2px 2px darken($mainColor, 30%);
+
+            &:hover {
+                background-color: darken($mainColor, 10%);
+            }
+
+            &:active {
+                transform: scale(.85);
+                transition: .2s;
+            }
+
+            &.active {
+                background-color: $activeColor;
+                font-weight: bolder;
+                text-shadow: 1px 1px 2px black, 0 0 1em $textColor;
+                margin-top: .7%;
+
+                & > a {
+                    color: $textColor !important;
+                }
+            }
+
+            & > a.page-link {
+                color: darken($textColor, 90%);
+                text-decoration: none;
+                font-size: 2rem;
+            }
+        }
+    }
+}
