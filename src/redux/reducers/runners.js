@@ -1,4 +1,4 @@
-import { ADD_NEW_FIELD, ADD_RUNNER } from '../action-types';
+import { ADD_NEW_FIELD, ADD_RUNNER, SORT_RUNNERS } from '../action-types';
 
 const init_state = [
 	{
@@ -35,6 +35,8 @@ export default function runners( state = init_state, action ) {
 		case ADD_NEW_FIELD:
 			return action.payload
 		case ADD_RUNNER:
+			return action.payload
+		case SORT_RUNNERS:
 			return action.payload
 		default:
 			return state;

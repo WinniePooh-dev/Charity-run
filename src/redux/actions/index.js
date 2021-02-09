@@ -1,4 +1,4 @@
-import { ADD_NEW_FIELD, ADD_RUNNER, GET_FORM_FIELDS } from "../action-types";
+import { ADD_NEW_FIELD, ADD_RUNNER, GET_FORM_FIELDS, SORT_RUNNERS } from "../action-types";
 
 export const addNewField = fields => {
     return {
@@ -11,6 +11,13 @@ export const addNewItem = ( items, item ) => {
     return {
         type: ADD_RUNNER,
         payload: [ ...items, item ]
+    }
+}
+
+export const sortItems = items => {
+    return {
+        type: SORT_RUNNERS,
+        payload: items
     }
 }
 
@@ -92,6 +99,24 @@ const dataFormFields = [
             name: {
                 registration_date: ''
             }
+        }
+    ],
+    [
+        {
+            type: 'select',
+            label: 'sort by',
+            name: {
+                sorting: ''
+            },
+            options: [
+                    'name',
+                    'date of birth',
+                    'email',
+                    'phone',
+                    'distance',
+                    'payment',
+                    'registration date'
+            ]
         }
     ]
 ]

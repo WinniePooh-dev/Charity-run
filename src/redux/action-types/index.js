@@ -1,3 +1,7 @@
+// RUNNERS
 export const ADD_RUNNER = 'ADD_RUNNER';
+export const SORT_RUNNERS = 'SORT_RUNNERS';
 export const ADD_NEW_FIELD = 'ADD_NEW_FIELD';
+
+// FORM FIELDS
 export const GET_FORM_FIELDS = 'GET_FORM_FIELDS';

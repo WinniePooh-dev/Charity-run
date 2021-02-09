@@ -102,3 +102,9 @@ form.race-app-form {
         }
     }
 }
+
+@media screen and ( max-width: 360px ) {
+    form.race-app-form {
+        width: 80%;
+    }
+}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../redux/actions';
 import { Button } from '../button';
@@ -27,14 +27,14 @@ class Form extends Component {
         event.preventDefault();
         await this.setState({ errors: this.validate(), valid: false });
         if (!this.state.errors.length && !this.state.valid) {
-            const { runners, onClose } = this.props;
+            const { runners, onClose, modal } = this.props;
             const { fields, registration_date } = this.state;
             const item = {};
             for(let field of Object.values(fields)) {
                 Object.assign(item, field.name)
             }
             this.props.onSubmit({id: runners.length + 1, ...item, registration_date});
-            onClose(false);
+            modal && onClose(false);
         }
         else {
             this.setState({
@@ -107,18 +107,21 @@ class Form extends Component {
 
     render() {
         const fields = this.state.fields;
-        const { onClose } = this.props;
+        const { onClose, label, action, modal, inline } = this.props;
+        const renderClose = (modal ? (
+            <h3>
+                <span className={'close'} onClick={() => onClose(false)}>&times;</span>
+                {this.props.title}
+            </h3>
+        ) : <Fragment/>)
         return (
-            <form className={this.props.className && this.props.className} onSubmit={this.handleSubmit}>
-                <h3>
-                    <span className={'close'} onClick={() => onClose(false)}>&times;</span>
-                    {this.props.title}
-                </h3>
+            <form className={`${this.props.className && this.props.className} ${inline && 'inline'}`} onSubmit={this.handleSubmit}>
+                {renderClose}
                 {fields.map((field, key) => {
-                    return <Field key={key} {...field} value={Object.values(field.name).toString()} errors={this.state.errors}
+                    return <Field key={key} {...field} value={Object.values(field.name).toString()} errors={this.state.errors} options={field.options}
                                   handleFieldChange={this.handleFieldChange} autoCompleteField={this.autoCompleteField}/>
                 })}
-                <Button title={'submit app form'} type={'submit'}/>
+                <Button title={label} type={action}/>
             </form>
         )
     }
@@ -126,7 +129,7 @@ class Form extends Component {
 
 class Field extends Component {
     render() {
-        const {type, label, value, name, handleFieldChange, autoCompleteField, errors} = this.props;
+        const {type, label, value, name, handleFieldChange, autoCompleteField, errors, options} = this.props;
         let content;
         switch (type) {
             case 'date':
@@ -147,6 +150,9 @@ class Field extends Component {
             case 'disabled':
                 content = <Disabled name={Object.keys(name).toString()} handleFieldChange={autoCompleteField}/>
                 break;
+            case 'select':
+                content = <Select type={type} options={options} name={Object.keys(name).toString()} handleFieldChange={handleFieldChange}/>
+                break;
             case 'text':
             default:
                 content = <Text type={type} value={value} name={Object.keys(name).toString()} handleFieldChange={handleFieldChange}/>
@@ -156,6 +162,19 @@ class Field extends Component {
             <label>{label}</label>
             {content}
         </>
+    }
+}
+
+class Select extends Component {
+    render() {
+        const field = this.props;
+        return (
+            <select name={field.name} onChange={e => this.props.handleFieldChange(e)}>
+                {field.options.map((option, key) => {
+                    return <option key={key} value={option}>{option}</option>
+                })}
+            </select>
+        )
     }
 }
 

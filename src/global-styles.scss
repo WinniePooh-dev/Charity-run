@@ -12,7 +12,7 @@ html, body {
         padding: 0;
     }
 
-    input, button {
+    input, button, select {
         margin: .5em;
         padding: 1em 2em;
         border-radius: 5px;
@@ -34,4 +34,16 @@ html, body {
 
 ::-moz-selection {
     background-color: transparent;
+}
+
+@media screen and ( max-width: 768px ) {
+    #root {
+        width: 100%;
+    }
+}
+
+@media screen and ( max-width: 360px ) {
+    #root ~ div {
+        width: 100%;
+    }
 }

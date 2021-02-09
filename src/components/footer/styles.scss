@@ -1,0 +1,10 @@
+@import '../table/styles.scss';
+
+footer {
+    position: sticky;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: scale-color($mainColor, $lightness: 10%);
+    opacity: .9;
+}
