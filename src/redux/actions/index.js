@@ -121,7 +121,7 @@ const dataFormFields = [
         {
             type: 'radio',
             name: {
-                radio: ''
+                radio: 'increase'
             },
             answers: [
                 {

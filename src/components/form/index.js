@@ -195,9 +195,11 @@ class Radio extends Component {
         return (
             <Fragment>
                 {field.answers.map((answer, key) => {
+                    console.log(answer)
                     return (
                         <label key={key} className={'radio-label'}>
-                            <input type={this.props.type} name={this.props.name} value={answer.value} onChange={e => this.props.handleFieldChange(e)}/>
+                            <input type={this.props.type} name={this.props.name} checked={answer.value == this.props.value} value={answer.value}
+                                   onChange={e => this.props.handleFieldChange(e)}/>
                             {answer.title}
                         </label>
                     )
