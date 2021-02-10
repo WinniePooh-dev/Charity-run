@@ -19,11 +19,10 @@ header.header {
     opacity: .9;
 
     div {
-        width: 70%;
+        width: 75%;
         margin: 0;
 
         & > form.sorting.inline {
-            display: inline;
 
             & button {
                 &:hover {
@@ -33,10 +32,87 @@ header.header {
 
             & label {
                 margin: .3em 1em 0;
+
+                &.radio-label {
+                    cursor: pointer;
+
+                    input[type='radio'] {
+                        cursor: pointer;
+                        display: inline-block;
+                    }
+                }
         
                 & + select {
                     width: 30%;
                     margin-top: .2em;
+                    margin-right: -2em;
+                    flex-basis: 15em;
+                }
+            }
+        }
+    }
+}
+
+@media screen and ( max-width: 1480px ) {
+    header.header {
+
+        div {
+            width: 90%;
+
+            & > form.sorting.inline {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                & .radio-label {
+
+                    input {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and ( max-width: 1280px ) {
+    & > form.sorting.inline {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        & .radio-label {
+
+            input {
+                display: block;
+            }
+        }
+    }
+
+    h2 {
+        display: none;
+    }
+}
+
+@media screen and ( min-width: 768px ) and ( max-width: 1080px ) {
+    header.header {
+        margin: 0 auto;
+        padding: 0;
+
+        div {
+            width: 90%;
+            margin-left: -2.5em;
+
+            form.sorting.inline {
+                display: flex;
+                justify-content: space-around;
+                
+                & .radio-label {
+                    min-width: 17%;
+                    
+                    input {
+                        display: block;
+                    }
                 }
             }
         }
@@ -45,7 +121,8 @@ header.header {
 
 @media screen and ( max-width: 768px ) {
     header.header {
-        height: 10em;
+        margin: 0 0 0 -1em;
+        height: 15em;
     }
 
     div {
@@ -57,12 +134,18 @@ header.header {
         }
 
         & form.sorting.inline {
+            display: inline !important;
+
             label {
                 display: block;
+
+                &.radio-label {
+                    display: block;
+                }
             }
     
             & button, select {
-                width: 75% !important;
+                width: 90% !important;
                 height: auto;
             }
         }

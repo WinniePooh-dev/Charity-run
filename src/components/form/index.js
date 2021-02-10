@@ -119,7 +119,7 @@ class Form extends Component {
                 {renderClose}
                 {fields.map((field, key) => {
                     return <Field key={key} {...field} value={Object.values(field.name).toString()} errors={this.state.errors} options={field.options}
-                                  handleFieldChange={this.handleFieldChange} autoCompleteField={this.autoCompleteField}/>
+                                  answers={field.answers} handleFieldChange={this.handleFieldChange} autoCompleteField={this.autoCompleteField}/>
                 })}
                 <Button title={label} type={action}/>
             </form>
@@ -129,7 +129,7 @@ class Form extends Component {
 
 class Field extends Component {
     render() {
-        const {type, label, value, name, handleFieldChange, autoCompleteField, errors, options} = this.props;
+        const {type, label, value, name, handleFieldChange, autoCompleteField, errors, options, answers} = this.props;
         let content;
         switch (type) {
             case 'date':
@@ -152,6 +152,9 @@ class Field extends Component {
                 break;
             case 'select':
                 content = <Select type={type} value={value} options={options} name={Object.keys(name).toString()} handleFieldChange={handleFieldChange}/>
+                break;
+            case 'radio':
+                content = <Radio type={type} value={value} name={Object.keys(name).toString()} answers={answers} handleFieldChange={handleFieldChange}/>
                 break;
             case 'text':
             default:
@@ -182,6 +185,24 @@ class Select extends Component {
                     }
                 })}
             </select>
+        )
+    }
+}
+
+class Radio extends Component {
+    render() {
+        const field = this.props;
+        return (
+            <Fragment>
+                {field.answers.map((answer, key) => {
+                    return (
+                        <label key={key} className={'radio-label'}>
+                            <input type={this.props.type} name={this.props.name} value={answer.value} onChange={e => this.props.handleFieldChange(e)}/>
+                            {answer.title}
+                        </label>
+                    )
+                })}
+            </Fragment>
         )
     }
 }
@@ -235,7 +256,7 @@ class Disabled extends Component {
     }
     componentDidUpdate(prevProps, prevState) {
         if (prevState.date !== this.state.date) {
-            this.props.handleFieldChange(this.state.date.split(',').join(' '));
+            this.props.handleFieldChange(this.state.date.split(',').join(''));
         }
     }
     componentWillUnmount() {

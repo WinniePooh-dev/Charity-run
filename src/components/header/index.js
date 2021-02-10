@@ -11,11 +11,12 @@ const Header = ({ items }) => {
 
     const handleSort = e => {
         let current = e.sorting;
+        let radio = e.radio;
         let field;
         runners.forEach(runner => {
             field = Object.keys(runner).find(e => e === current)
         });
-        dispatch(sortItems(sorting(items, field)))
+        dispatch(sortItems(sorting(items, field, radio)))
     }
 
     return (
@@ -33,15 +34,32 @@ const Header = ({ items }) => {
     )
 }
 
-const sorting = (items, field) => {
+const sorting = (items, field, radio) => {
     items.sort(function (a, b) {
-        if (a[field] > b[field]) {
-            return 1;
+        if (radio === 'increase') {
+            if (field !== undefined && field.match(/date/)) {
+                return new Date(a[field]) - new Date(b[field])
+            }
+            if (a[field] > b[field]) {
+                return 1;
+            }
+            if (a[field] < b[field]) {
+                return -1;
+            }
+            return 0;
         }
-        if (a[field] < b[field]) {
-            return -1;
+        else if (radio === 'decrease') {
+            if (field !== undefined && field.match(/date/)) {
+                return new Date(b[field]) - new Date(a[field])
+            }
+            if (b[field] > a[field]) {
+                return 1;
+            }
+            if (b[field] < a[field]) {
+                return -1;
+            }
+            return 0;
         }
-        return 0;
     });
     return items;
 }
