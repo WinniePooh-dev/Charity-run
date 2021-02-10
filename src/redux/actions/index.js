@@ -106,16 +106,59 @@ const dataFormFields = [
             type: 'select',
             label: 'sort by',
             name: {
-                sorting: ''
+                sorting: 'payment'
             },
             options: [
-                    'name',
-                    'date of birth',
-                    'email',
-                    'phone',
-                    'distance',
-                    'payment',
-                    'registration date'
+                    {
+                        name: {
+                            id: 1,
+                            title: 'name',
+                            value: 'name'
+                        }
+                        
+                    },
+                    {
+                        'date of birth': {
+                            id: 2,
+                            title: 'date of birth',
+                            value: 'date of birth'
+                        }
+                    },
+                    {
+                        email: {
+                            id: 3,
+                            title: 'email',
+                            value: 'email'
+                        }
+                    },
+                    {
+                        phone: {
+                            id: 4,
+                            title: 'phone',
+                            value: 'phone'
+                        }
+                    },
+                    {
+                        distance: {
+                            id: 5,
+                            title: 'distance',
+                            value: 'distance'
+                        }
+                    },
+                    {
+                        payment: {
+                            id: 6,
+                            title: 'payment',
+                            value: 'payment'
+                        }
+                    },
+                    {
+                        'registration date': {
+                            id: 7,
+                            title: 'registration date',
+                            value: 'registration date'
+                        }
+                    }
             ]
         }
     ]

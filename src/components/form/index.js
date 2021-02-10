@@ -151,7 +151,7 @@ class Field extends Component {
                 content = <Disabled name={Object.keys(name).toString()} handleFieldChange={autoCompleteField}/>
                 break;
             case 'select':
-                content = <Select type={type} options={options} name={Object.keys(name).toString()} handleFieldChange={handleFieldChange}/>
+                content = <Select type={type} value={value} options={options} name={Object.keys(name).toString()} handleFieldChange={handleFieldChange}/>
                 break;
             case 'text':
             default:
@@ -169,9 +169,17 @@ class Select extends Component {
     render() {
         const field = this.props;
         return (
-            <select name={field.name} onChange={e => this.props.handleFieldChange(e)}>
+            <select value={this.props.value ? this.props.value : null} name={field.name} onChange={e => this.props.handleFieldChange(e)}>
+                <option selected disabled hidden>Choose here</option>
                 {field.options.map((option, key) => {
-                    return <option key={key} value={option}>{option}</option>
+                    if(typeof option === 'string') {
+                        return <option key={key} value={option}>{option}</option>
+                    }
+                    else if (option instanceof Object && !Array.isArray(option)) {
+                        return Object.values(option).map(({id, title, value}) => {
+                            return <option key={id} value={value}>{title}</option>
+                        })
+                    }
                 })}
             </select>
         )
